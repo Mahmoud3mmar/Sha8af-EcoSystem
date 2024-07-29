@@ -32,10 +32,8 @@ The Coworking Space Management System is a web application designed to streamlin
 ## Technologies Used
 
 - **Backend**: Node.js, Express.js, MongoDB
-- **Frontend**: (Include your frontend technologies here if applicable, e.g., React, Angular, etc.)
 - **Authentication**: JWT (JSON Web Tokens) for secure authentication
-- **Styling**: (Include your styling framework here if applicable, e.g., Bootstrap, Tailwind CSS, etc.)
-- **Testing**: (Include testing frameworks if applicable, e.g., Jest, Mocha, etc.)
+
 
 ## Installation
 
@@ -61,3 +59,10 @@ To run the application locally, follow these steps:
    MONGODB_URI=<your-mongodb-uri>
    JWT_SECRET=<your-jwt-secret>
    ```
+
+4.Start the server:
+
+   ```bash
+    npm start
+   ```
+## Endpoints
