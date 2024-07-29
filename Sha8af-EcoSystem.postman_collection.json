@@ -1,0 +1,738 @@
+{
+	"info": {
+		"_postman_id": "b4780f25-67c8-44a0-97f3-a8b097817639",
+		"name": "Sha8af-EcoSystem",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31110005"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "SignIn",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 201\", function () {",
+									"  pm.expect(pm.response.code).to.equal(201);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required fields - token and message\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.token).to.exist;",
+									"    pm.expect(responseData.message).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Token is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.token).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Token should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Message is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.message).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Message should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Content-Type header is application/json\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"countryCode\":\"EG\",\r\n    \"phone\":\"+201147380801\",\r\n    \"password\":\"easypw\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/signin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"signin"
+							]
+						},
+						"description": "This endpoint allows users to sign in to the application using their phone number and password."
+					},
+					"response": []
+				},
+				{
+					"name": "SignUp",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 400\", function () {",
+									"    pm.expect(pm.response.code).to.equal(400);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required fields - message and stack\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.message).to.exist;",
+									"    pm.expect(responseData.stack).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Message is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.message).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Message should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Stack is a non-empty string\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.stack).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Content-Type header is application/json\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Mahmoud Ahmed\",\r\n    \"countryCode\":\"EG\",\r\n    \"phone\":\"+201147380811\",\r\n    \"password\":\"easypw2\",\r\n    \"role\":\"USER\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"signup"
+							]
+						},
+						"description": "This endpoint allows new users to create an account in the application by providing their personal information and credentials."
+					},
+					"response": []
+				},
+				{
+					"name": "LogOut",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTWFobW91ZCBBaG1lZDIgIiwiaWQiOiI2NjlmYjdjYzFiMzY2NTY5MGY4Njc2ZjkiLCJpYXQiOjE3MjE3NDMzMTUsImV4cCI6MTcyMTc0NjkxNX0.iJYo1g55ZR1jiHM3qgME6P5Rswmkk065rKs-q7N6GCs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"logout"
+							]
+						},
+						"description": "This endpoint allows users to log out from their account by invalidating their session token."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Room",
+			"item": [
+				{
+					"name": "Add-Room",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `\r",
+									"<style type=\"text/css\">\r",
+									"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+									"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+									"    .tftable tr {background-color:#ffffff;}\r",
+									"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+									"    .tftable tr:hover {background-color:#e0ffff;}\r",
+									"</style>\r",
+									"\r",
+									"<table class=\"tftable\" border=\"1\">\r",
+									"    <tr>\r",
+									"        <th>Message</th>\r",
+									"    </tr>\r",
+									"    <tr>\r",
+									"        <td>{{response.message}}</td>\r",
+									"    </tr>\r",
+									"</table>\r",
+									"`;\r",
+									"\r",
+									"function constructVisualizerPayload() {\r",
+									"    var res = pm.response.json();\r",
+									"    return {response: res};\r",
+									"}\r",
+									"\r",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YTc4ZGU5ZDBkYTZkYTY1MjRhMDFmOSIsIm5hbWUiOiJNYWhtb3VkIEFobWVkIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzIyMjU3NjY3LCJleHAiOjE3MjIyNjEyNjd9.-dRBMRIXauhx1EdK_mqy3huClhxx-iI1F8swii-WPeY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Conference Room A22",
+									"type": "text"
+								},
+								{
+									"key": "seats",
+									"value": "20",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "A spacious conference room equipped with the latest technology for meetings",
+									"type": "text"
+								},
+								{
+									"key": "amenities",
+									"value": "\"Projector\", \"Whiteboard\", \"Wi-Fi\"",
+									"type": "text"
+								},
+								{
+									"key": "plans[hourly]",
+									"value": "50",
+									"type": "text"
+								},
+								{
+									"key": "plans[daily]",
+									"value": "500",
+									"type": "text"
+								},
+								{
+									"key": "plans[monthly]",
+									"value": "1500",
+									"type": "text"
+								},
+								{
+									"key": "availability",
+									"value": "true",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/D:/0_ywkLHntzCf0AUqSq.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/Room/66a77308063e0aa38588a18e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Room",
+								"66a77308063e0aa38588a18e"
+							]
+						},
+						"description": "This endpoint allows users to add a new room to a specific branch identified by the branch ID in the URL."
+					},
+					"response": []
+				},
+				{
+					"name": "Get-Rooms",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YTc3MmExZmVhMGExNDJlZTUzNmIwYiIsIm5hbWUiOiJNYWhtb3VkIEFobWVkIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzIyMjQ5ODk3LCJleHAiOjE3MjIyNTM0OTd9.xFl-v9XYGkV66TWclwY4UfyiESwxi7rzWFXTnmgoXxU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/Room/66a77308063e0aa38588a18e?page=1&limit=10&name=conference",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Room",
+								"66a77308063e0aa38588a18e"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "name",
+									"value": "conference"
+								}
+							]
+						},
+						"description": "This endpoint retrieves a list of rooms belonging to a specific branch, with optional pagination and filtering based on the room name."
+					},
+					"response": []
+				},
+				{
+					"name": "Update-Room",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YTc3MmExZmVhMGExNDJlZTUzNmIwYiIsIm5hbWUiOiJNYWhtb3VkIEFobWVkIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzIyMjQ5ODk3LCJleHAiOjE3MjIyNTM0OTd9.xFl-v9XYGkV66TWclwY4UfyiESwxi7rzWFXTnmgoXxU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Conference Room AA\",\r\n    \"seats\": 20,\r\n    \"description\": \"A spacious conference room equipped with the latest technology for meetings.\",\r\n    \"amenities\": [\"Projector\", \"Whiteboard\", \"Wi-Fi\"],\r\n    \"plans\": {\r\n        \"hourly\": 50,\r\n        \"daily\": 300,\r\n        \"monthly\": 1000\r\n    },\r\n    \"availability\": true\r\n   \r\n   \r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/Room/66a77a06bf1bec3c4ed503cf",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Room",
+								"66a77a06bf1bec3c4ed503cf"
+							]
+						},
+						"description": "This endpoint updates the details of a specific room identified by its ID."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete-Room",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YTc3MmExZmVhMGExNDJlZTUzNmIwYiIsIm5hbWUiOiJNYWhtb3VkIEFobWVkIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzIyMjQ5ODk3LCJleHAiOjE3MjIyNTM0OTd9.xFl-v9XYGkV66TWclwY4UfyiESwxi7rzWFXTnmgoXxU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/Room/66a77c76e654207bc82d3571",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Room",
+								"66a77c76e654207bc82d3571"
+							]
+						},
+						"description": "This endpoint deletes a specific room identified by its ID."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Branch",
+			"item": [
+				{
+					"name": "Add-Branch",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YTc3MmExZmVhMGExNDJlZTUzNmIwYiIsIm5hbWUiOiJNYWhtb3VkIEFobWVkIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzIyMjQ5ODk3LCJleHAiOjE3MjIyNTM0OTd9.xFl-v9XYGkV66TWclwY4UfyiESwxi7rzWFXTnmgoXxU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Cairo Main Office3\",\r\n    \"address\": {\r\n        \"street\": \"123 Al Tahrir Street\",\r\n        \"city\": \"Cairo\",\r\n        \"state\": \"Cairo Governorate\",\r\n        \"zipCode\": \"11511\",\r\n        \"country\": \"Egypt\",\r\n        \"locationURL\": \"https://goo.gl/maps/xyz123\"\r\n    }\r\n    \r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/Branch",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Branch"
+							]
+						},
+						"description": "This endpoint allows an authenticated user to add a new branch to the system."
+					},
+					"response": []
+				},
+				{
+					"name": "Get-Branchs",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YTc3MmExZmVhMGExNDJlZTUzNmIwYiIsIm5hbWUiOiJNYWhtb3VkIEFobWVkIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzIyMjQ5ODk3LCJleHAiOjE3MjIyNTM0OTd9.xFl-v9XYGkV66TWclwY4UfyiESwxi7rzWFXTnmgoXxU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/Branch?page=1&limit=10&name=cairo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Branch"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "name",
+									"value": "cairo"
+								}
+							]
+						},
+						"description": "This endpoint allows an authenticated user to retrieve a list of branches from the system, with optional filtering and pagination."
+					},
+					"response": []
+				},
+				{
+					"name": "Get-Branch",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YTc3MmExZmVhMGExNDJlZTUzNmIwYiIsIm5hbWUiOiJNYWhtb3VkIEFobWVkIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzIyMjQ5ODk3LCJleHAiOjE3MjIyNTM0OTd9.xFl-v9XYGkV66TWclwY4UfyiESwxi7rzWFXTnmgoXxU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/Branch/66a77308063e0aa38588a18e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Branch",
+								"66a77308063e0aa38588a18e"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						},
+						"description": "This endpoint retrieves the details of a specific branch by its ID."
+					},
+					"response": []
+				},
+				{
+					"name": "Update-Branch",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YTc3MmExZmVhMGExNDJlZTUzNmIwYiIsIm5hbWUiOiJNYWhtb3VkIEFobWVkIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzIyMjQ5ODk3LCJleHAiOjE3MjIyNTM0OTd9.xFl-v9XYGkV66TWclwY4UfyiESwxi7rzWFXTnmgoXxU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Cairo Office\",\r\n    \"address\": {\r\n        \"street\": \"123 Al Tahrir Street\",\r\n        \"city\": \"Cairo\",\r\n        \"state\": \"Cairo Governorate\",\r\n        \"zipCode\": \"11511\",\r\n        \"country\": \"Egypt\",\r\n        \"locationURL\": \"https://goo.gl/maps/xyz123\"\r\n    }\r\n    \r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/Branch/66a77308063e0aa38588a18e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Branch",
+								"66a77308063e0aa38588a18e"
+							]
+						},
+						"description": "This endpoint updates the details of a specific branch identified by its ID."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete-Branch",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YTc3MmExZmVhMGExNDJlZTUzNmIwYiIsIm5hbWUiOiJNYWhtb3VkIEFobWVkIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzIyMjQ5ODk3LCJleHAiOjE3MjIyNTM0OTd9.xFl-v9XYGkV66TWclwY4UfyiESwxi7rzWFXTnmgoXxU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/Branch/66a77c76e654207bc82d3571",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Branch",
+								"66a77c76e654207bc82d3571"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						},
+						"description": "This endpoint delete a specific branch identified by its ID."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Booking",
+			"item": [
+				{
+					"name": "Add-Booking",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YTc4ZTAyZDBkYTZkYTY1MjRhMDFmZiIsIm5hbWUiOiJNYWhtb3VkIEFobWVkIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3MjIyNTgxNTYsImV4cCI6MTcyMjI2MTc1Nn0.ZcC0OAu3pEXa1dFWk9ylw9p9f3CGJi35qkVvgkBvOVk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\": \"2024-07-30T00:00:00.000Z\",\r\n    \"timeFrom\": \"10:00\",\r\n    \"timeTo\": \"12:00\",\r\n    \"seats\": 4,\r\n    \"selectedPlan\": \"hourly\",\r\n    \"finalCharge\": 100.00,\r\n    \"promoCode\": \"SUMMER2024\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/Booking/66a792db925ab7a3f498d1db",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Booking",
+								"66a792db925ab7a3f498d1db"
+							]
+						},
+						"description": "This endpoint allows a user to create a new booking for a specific room identified by its ID."
+					},
+					"response": []
+				},
+				{
+					"name": "Get-BookingHistory",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YTc4ZTAyZDBkYTZkYTY1MjRhMDFmZiIsIm5hbWUiOiJNYWhtb3VkIEFobWVkIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3MjIyNTgxNTYsImV4cCI6MTcyMjI2MTc1Nn0.ZcC0OAu3pEXa1dFWk9ylw9p9f3CGJi35qkVvgkBvOVk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/Booking?type=upcoming",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Booking"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "upcoming"
+								}
+							]
+						},
+						"description": "This endpoint retrieves the booking history for the authenticated user. Users can filter their bookings based on the specified type (e.g., upcoming or past bookings)."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Coupon",
+			"item": [
+				{
+					"name": "Add-Coupon",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YTc4ZGU5ZDBkYTZkYTY1MjRhMDFmOSIsIm5hbWUiOiJNYWhtb3VkIEFobWVkIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzIyMjU5MTcxLCJleHAiOjE3MjIyNjI3NzF9.tLrZbEqstLSk0VdmxbdXtFaq7r3cFLuBnFIjoLhsAsI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"promoCode\": \"SUMMER2024\",\r\n    \"discountPercentage\": 20,\r\n    \"expiryDate\": \"2024-09-30T23:59:59.999Z\",\r\n    \"maxUsage\": 5,\r\n    \"currentUsage\": 0,\r\n    \"isActive\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/coupon",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"coupon"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
