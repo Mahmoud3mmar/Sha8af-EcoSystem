@@ -65,4 +65,3 @@ To run the application locally, follow these steps:
    ```bash
     npm start
    ```
-## Endpoints
